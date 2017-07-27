@@ -1,0 +1,150 @@
+{
+    "extractors": {}, 
+    "id": "9eec-479c-b23f", 
+    "name": "Auditing Black-Box Models for Indirect Influence", 
+    "page_id": "", 
+    "page_type": "item", 
+    "plugins": {
+        "annotations-plugin": {
+            "extracts": [
+                {
+                    "annotations": {
+                        "#portia-content": "#dummy"
+                    }, 
+                    "container_id": null, 
+                    "id": "53c5-4956-baaa#parent", 
+                    "item_container": true, 
+                    "repeated": false, 
+                    "required": [], 
+                    "schema_id": "5422-48c3-82ae", 
+                    "selector": ".tab-pane > .ng-scope", 
+                    "siblings": 0, 
+                    "tagid": null, 
+                    "text-content": "#portia-content"
+                }, 
+                {
+                    "annotations": {
+                        "#portia-content": "#dummy"
+                    }, 
+                    "container_id": "53c5-4956-baaa#parent", 
+                    "id": "53c5-4956-baaa", 
+                    "item_container": true, 
+                    "repeated": true, 
+                    "required": [], 
+                    "schema_id": "5422-48c3-82ae", 
+                    "selector": ".doc-all-keywords-list-item:nth-child(1) > div > .ng-binding", 
+                    "siblings": 0, 
+                    "tagid": null, 
+                    "text-content": "#portia-content"
+                }, 
+                {
+                    "accept_selectors": [
+                        ".carousel-item:nth-child(1) > .author-card > .pure-g > .pure-u-24-24 > div:nth-child(1) > a > .ng-binding", 
+                        ".carousel-item:nth-child(2) > .author-card > .pure-g > .pure-u-24-24 > div:nth-child(1) > a > .ng-binding"
+                    ], 
+                    "container_id": "53c5-4956-baaa", 
+                    "data": {
+                        "b993-44f0-9de5": {
+                            "attribute": "content", 
+                            "extractors": {}, 
+                            "field": "690a-4954-9f87", 
+                            "required": false
+                        }
+                    }, 
+                    "id": "92a1-4414-aa01", 
+                    "post_text": null, 
+                    "pre_text": null, 
+                    "reject_selectors": [], 
+                    "repeated": false, 
+                    "required": [], 
+                    "selection_mode": "auto", 
+                    "selector": ".pure-u-24-24 > div:nth-child(1) > a > .ng-binding", 
+                    "tagid": null, 
+                    "text-content": "content", 
+                    "xpath": "//*[contains(concat(\" \", @class, \" \"), \" pure-u-24-24 \")]/div[1]/a/*[contains(concat(\" \", @class, \" \"), \" ng-binding \")]"
+                }, 
+                {
+                    "accept_selectors": [
+                        ".carousel-item:nth-child(1) > .author-card > .pure-g > .pure-u-24-24 > .ng-binding"
+                    ], 
+                    "container_id": "53c5-4956-baaa", 
+                    "data": {
+                        "4b3e-4655-9863": {
+                            "attribute": "content", 
+                            "extractors": {}, 
+                            "field": "8289-46ee-a6fe", 
+                            "required": false
+                        }
+                    }, 
+                    "id": "96d9-4946-9a93", 
+                    "post_text": null, 
+                    "pre_text": null, 
+                    "reject_selectors": [], 
+                    "repeated": false, 
+                    "required": [], 
+                    "selection_mode": "auto", 
+                    "selector": ".carousel-item:nth-child(1) > .author-card > .pure-g > .pure-u-24-24 > .ng-binding", 
+                    "tagid": null, 
+                    "text-content": "content", 
+                    "xpath": "//*[1][contains(concat(\" \", @class, \" \"), \" carousel-item \")]/*[contains(concat(\" \", @class, \" \"), \" author-card \")]/*[contains(concat(\" \", @class, \" \"), \" pure-g \")]/*[contains(concat(\" \", @class, \" \"), \" pure-u-24-24 \")]/*[contains(concat(\" \", @class, \" \"), \" ng-binding \")]"
+                }, 
+                {
+                    "accept_selectors": [
+                        ".doc-all-keywords-list-item:nth-child(1) > div > span:nth-child(1) > .ng-binding", 
+                        ".doc-all-keywords-list-item:nth-child(1) > div > span:nth-child(2) > .ng-binding"
+                    ], 
+                    "container_id": "53c5-4956-baaa", 
+                    "data": {
+                        "499f-4434-beb2": {
+                            "attribute": "href", 
+                            "extractors": {}, 
+                            "field": "9932-4e85-8e5c", 
+                            "required": false
+                        }
+                    }, 
+                    "id": "ec01-4f01-8e0e", 
+                    "post_text": null, 
+                    "pre_text": null, 
+                    "reject_selectors": [], 
+                    "repeated": true, 
+                    "required": [], 
+                    "selection_mode": "auto", 
+                    "selector": ".doc-all-keywords-list-item:nth-child(1) > div > .ng-binding > .ng-binding", 
+                    "tagid": null, 
+                    "text-content": "content", 
+                    "xpath": "//*[1][contains(concat(\" \", @class, \" \"), \" doc-all-keywords-list-item \")]/div/*[contains(concat(\" \", @class, \" \"), \" ng-binding \")]/*[contains(concat(\" \", @class, \" \"), \" ng-binding \")]"
+                }, 
+                {
+                    "accept_selectors": [
+                        ".doc-all-keywords-list-item:nth-child(4) > div > span:nth-child(1) > .ng-binding", 
+                        ".doc-all-keywords-list-item:nth-child(4) > div > span:nth-child(2) > .ng-binding"
+                    ], 
+                    "container_id": "53c5-4956-baaa", 
+                    "data": {
+                        "49b0-4018-b60b": {
+                            "attribute": "href", 
+                            "extractors": {}, 
+                            "field": "023d-4879-859f", 
+                            "required": false
+                        }
+                    }, 
+                    "id": "5c37-44b2-aafd", 
+                    "post_text": null, 
+                    "pre_text": null, 
+                    "reject_selectors": [], 
+                    "repeated": true, 
+                    "required": [], 
+                    "selection_mode": "auto", 
+                    "selector": ".doc-all-keywords-list-item:nth-child(4) > div > .ng-binding > .ng-binding", 
+                    "tagid": null, 
+                    "text-content": "content", 
+                    "xpath": "//*[4][contains(concat(\" \", @class, \" \"), \" doc-all-keywords-list-item \")]/div/*[contains(concat(\" \", @class, \" \"), \" ng-binding \")]/*[contains(concat(\" \", @class, \" \"), \" ng-binding \")]"
+                }
+            ]
+        }
+    }, 
+    "scrapes": "5422-48c3-82ae", 
+    "spider": "ieeexplore.ieee.org_1", 
+    "url": "http://ieeexplore.ieee.org/document/7837824/authors", 
+    "version": "0.13.1"
+}

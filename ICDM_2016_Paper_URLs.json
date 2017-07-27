@@ -1,0 +1,35 @@
+{
+    "allowed_domains": [], 
+    "exclude_patterns": [], 
+    "follow_patterns": [
+        "http://ieeexplore.ieee.org/xpl/mostRecentIssue.jsp?punumber=7837023"
+    ], 
+    "id": "ieeexplore.ieee.org", 
+    "js_disable_patterns": [], 
+    "js_enable_patterns": [], 
+    "js_enabled": false, 
+    "links_to_follow": "none", 
+    "respect_nofollow": false, 
+    "start_urls": [
+        {
+            "type": "url", 
+            "url": "http://ieeexplore.ieee.org/xpl/mostRecentIssue.jsp?punumber=7837023"
+        }, 
+        {
+            "type": "url", 
+            "url": "http://ieeexplore.ieee.org/xpl/mostRecentIssue.jsp?punumber=7837023&filter%3DAND%28p_IS_Number%3A7837813%29&pageNumber=2"
+        }, 
+        {
+            "type": "url", 
+            "url": "http://ieeexplore.ieee.org/xpl/mostRecentIssue.jsp?punumber=7837023&filter%3DAND%28p_IS_Number%3A7837813%29&pageNumber=3"
+        }, 
+        {
+            "type": "url", 
+            "url": "http://ieeexplore.ieee.org/xpl/mostRecentIssue.jsp?punumber=7837023&filter%3DAND%28p_IS_Number%3A7837813%29&pageNumber=4"
+        }, 
+        {
+            "type": "url", 
+            "url": "http://ieeexplore.ieee.org/xpl/mostRecentIssue.jsp?punumber=7837023&filter%3DAND%28p_IS_Number%3A7837813%29&pageNumber=5"
+        }
+    ]
+}
