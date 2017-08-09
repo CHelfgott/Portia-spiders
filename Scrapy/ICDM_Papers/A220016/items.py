@@ -31,7 +31,7 @@ class PortiaItem(scrapy.Item):
         return string
 
 
-class AuthorItem(scrapy.Item):
+class AuthorItem(PortiaItem):
     Author = scrapy.Field(
         input_processor=Text(),
         output_processor=Join(),
@@ -58,6 +58,7 @@ class AuditingBlackBoxModelsForIndirectInfluenceItem(PortiaItem):
         output_processor=Join(),
     )
     Authors = scrapy.Field(
+        imput_processor=MapCompose(Identity()),
         output_processor=Join(),
     )
     Author_Keywords = scrapy.Field(
