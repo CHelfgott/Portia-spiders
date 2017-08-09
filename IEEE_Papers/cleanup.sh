@@ -3,5 +3,5 @@
 #   made code changes. May need to run with sudo.
 rm -rf build
 rm -rf dist
-rm -rf project-info.egg
+rm -rf project.egg-info
 python setup.py install

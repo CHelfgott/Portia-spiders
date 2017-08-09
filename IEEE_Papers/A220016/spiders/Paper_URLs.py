@@ -17,11 +17,11 @@ class PaperUrls(BasePortiaSpider):
     name = "Paper_URLs"
     allowed_domains = [u'ieeexplore.ieee.org']
     start_urls = [
-        u'http://ieeexplore.ieee.org/xpl/mostRecentIssue.jsp?punumber=7837023&filter%3DAND%28p_IS_Number%3A7837813%29&pageNumber=1',
-        u'http://ieeexplore.ieee.org/xpl/mostRecentIssue.jsp?punumber=7837023&filter%3DAND%28p_IS_Number%3A7837813%29&pageNumber=2',
-        u'http://ieeexplore.ieee.org/xpl/mostRecentIssue.jsp?punumber=7837023&filter%3DAND%28p_IS_Number%3A7837813%29&pageNumber=3',
-        u'http://ieeexplore.ieee.org/xpl/mostRecentIssue.jsp?punumber=7837023&filter%3DAND%28p_IS_Number%3A7837813%29&pageNumber=4',
-        u'http://ieeexplore.ieee.org/xpl/mostRecentIssue.jsp?punumber=7837023&filter%3DAND%28p_IS_Number%3A7837813%29&pageNumber=5']
+        u'http://ieeexplore.ieee.org/xpl/mostRecentIssue.jsp?punumber=7373198',
+        u'http://ieeexplore.ieee.org/xpl/mostRecentIssue.jsp?punumber=7373198&filter%3DAND%28p_IS_Number%3A7373293%29&pageNumber=2',
+        u'http://ieeexplore.ieee.org/xpl/mostRecentIssue.jsp?punumber=7373198&filter%3DAND%28p_IS_Number%3A7373293%29&pageNumber=3',
+        u'http://ieeexplore.ieee.org/xpl/mostRecentIssue.jsp?punumber=7373198&filter%3DAND%28p_IS_Number%3A7373293%29&pageNumber=4',
+        u'http://ieeexplore.ieee.org/xpl/mostRecentIssue.jsp?punumber=7373198&filter%3DAND%28p_IS_Number%3A7373293%29&pageNumber=5']
     rules = [
         Rule(
             LinkExtractor(
@@ -29,17 +29,17 @@ class PaperUrls(BasePortiaSpider):
                 deny=()),
             callback='parse_item',
             follow=True)]
-    items = [[Item(IeeeXploreConferenceTableOfContentsItem,
-                   None,
-                   '.results > li:nth-child(n) > .txt',
-                   [Field('Paper_Title',
-                          'h3 > .art-abs-url > span *::text',
-                          [],
-                          False),
-                    Field('Paper_URL',
-                          '.controls > a:nth-child(4)::attr(href)',
-                          [],
-                          False)])]]
+
+    def parse_item(self, response):
+      paper_selector = response.selector.css('.results > li:nth-child(n) > .txt')
+      for paper in paper_selector:
+        paper_item = IeeeXploreConferenceTableOfContentsItem()
+        title = paper.css('h3 > .art-abs-url > span *::text').extract_first()
+        if not title: continue
+        paper_item['Paper_Title'] = title
+        paper_item['Paper_URL'] = response.urljoin(
+            paper.css('h3 > .art-abs-url::attr(href)').extract_first())
+        yield paper_item
 
 
     def start_requests(self):
