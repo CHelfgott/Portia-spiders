@@ -31,7 +31,7 @@ class PaperUrls(BasePortiaSpider):
             follow=True)]
     items = [[Item(IeeeXploreConferenceTableOfContentsItem,
                    None,
-                   '.results > li:nth-child(n+11) > .txt',
+                   '.results > li:nth-child(n) > .txt',
                    [Field('Paper_Title',
                           'h3 > .art-abs-url > span *::text',
                           [],
@@ -39,7 +39,7 @@ class PaperUrls(BasePortiaSpider):
                     Field('Paper_URL',
                           '.controls > a:nth-child(4)::attr(href)',
                           [],
-                          True)])]]
+                          False)])]]
 
 
     def start_requests(self):
