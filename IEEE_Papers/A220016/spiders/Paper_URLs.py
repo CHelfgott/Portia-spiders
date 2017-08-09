@@ -17,7 +17,7 @@ class PaperUrls(BasePortiaSpider):
     name = "Paper_URLs"
     allowed_domains = [u'ieeexplore.ieee.org']
     start_urls = [
-        u'http://ieeexplore.ieee.org/xpl/mostRecentIssue.jsp?punumber=7837023',
+        u'http://ieeexplore.ieee.org/xpl/mostRecentIssue.jsp?punumber=7837023&filter%3DAND%28p_IS_Number%3A7837813%29&pageNumber=1',
         u'http://ieeexplore.ieee.org/xpl/mostRecentIssue.jsp?punumber=7837023&filter%3DAND%28p_IS_Number%3A7837813%29&pageNumber=2',
         u'http://ieeexplore.ieee.org/xpl/mostRecentIssue.jsp?punumber=7837023&filter%3DAND%28p_IS_Number%3A7837813%29&pageNumber=3',
         u'http://ieeexplore.ieee.org/xpl/mostRecentIssue.jsp?punumber=7837023&filter%3DAND%28p_IS_Number%3A7837813%29&pageNumber=4',
@@ -35,7 +35,7 @@ class PaperUrls(BasePortiaSpider):
                    [Field('Paper_Title',
                           'h3 > .art-abs-url > span *::text',
                           [],
-                          True),
+                          False),
                     Field('Paper_URL',
                           '.controls > a:nth-child(4)::attr(href)',
                           [],
