@@ -52,7 +52,7 @@ class IeeeXploreConferenceTableOfContentsItem(PortiaItem):
         output_processor=Join(),
     )
 
-class AuditingBlackBoxModelsForIndirectInfluenceItem(PortiaItem):
+class PaperInfoItem(PortiaItem):
     Title = scrapy.Field(
         input_processor=Text(),
         output_processor=Join(),
