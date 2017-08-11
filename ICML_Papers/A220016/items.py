@@ -42,7 +42,7 @@ class AuthorItem(PortiaItem):
     )
 
 
-class IeeeXploreConferenceTableOfContentsItem(PortiaItem):
+class ConferenceTableOfContentsItem(PortiaItem):
     Paper_Title = scrapy.Field(
         input_processor=Text(),
         output_processor=Join(),
@@ -51,6 +51,15 @@ class IeeeXploreConferenceTableOfContentsItem(PortiaItem):
         input_processor=Url(),
         output_processor=Join(),
     )
+    Year = scrapy.Field(
+        input_processor=Text(),
+        output_processor=Join(),
+    )
+    Authors = scrapy.Field(
+        input_processor=MapCompose(Identity()),
+        output_processor=Join(),
+    )
+
 
 class PaperInfoItem(PortiaItem):
     Title = scrapy.Field(
@@ -61,11 +70,4 @@ class PaperInfoItem(PortiaItem):
         input_processor=MapCompose(Identity()),
         output_processor=Join(),
     )
-    Author_Keywords = scrapy.Field(
-        input_processor=Text(),
-        output_processor=Join(),
-    )
-    IEEE_Keywords = scrapy.Field(
-        input_processor=Text(),
-        output_processor=Join(),
-    )
+
