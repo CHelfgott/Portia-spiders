@@ -19,8 +19,15 @@ class LengthMismatch(Exception):
     def __init__(self, msg):
         self.msg = msg
 
+    def __str__(self):
+        return self.msg
 
-    def __str__(self)
+
+class ConferenceMismatch(Exception):
+    def __init__(self, msg):
+        self.msg = msg
+
+    def __str__(self):
         return self.msg
 
 
@@ -35,8 +42,8 @@ class PaperUrls(BasePortiaSpider):
                 deny=()),
             callback='parse_item',
             follow=True)]
-    start_urls = [u'http://dblp.dagstuhl.de/db/conf/icml/index.html']#,
-#                  u'http://dblp.dagstuhl.de/db/conf/kdd/index.html']
+    start_urls = [u'http://dblp.dagstuhl.de/db/conf/icml/index.html',
+                  u'http://dblp.dagstuhl.de/db/conf/kdd/index.html']
 
     def parse_master(self, response):
         toc_selector = response.selector.css('a:contains("table of contents")' +
@@ -47,19 +54,41 @@ class PaperUrls(BasePortiaSpider):
           raise LengthMismatch(
               'Not every conference on ' + response.url +
               ' is matched with a Table of Contents link')
-        proceeding_str = "Proceedings of the \w+-?\w* (Annual )?"
-        proceeding_str += "International (Conference|Workshop)"
-        pattern = "^" + proceeding_str + " [Oo]n Machine Learning|"
-        pattern += "^Machine Learning, " + proceeding_str
+
+        conference = ""
+        proceeding_pattern = ""
+        if re.search("kdd", response.url, re.IGNORECASE):
+          conference = "SIGKDD"
+          # The following pattern will explicitly exclude the "Tutorial Notes"
+          # accompanying the SIGKDD Proceedings in 1999 and 2001
+          proc_str = "Knowledge Discovery and Data Mining"
+          proceeding_pattern = "^Proceedings .* " + proc_str + "|"
+          proceeding_pattern += "^The \w+-?\w* ACM SIGKDD International "
+          proceeding_pattern += "Conference [Oo]n " + proc_str
+        elif re.search("icml", response.url, re.IGNORECASE):
+          conference = "ICML"
+          # We need to special-case ICML 1991, because the proceedings title
+          # says nothing about "Machine Learning".
+          proc_str = "Proceedings of the \w+-?\w* (Annual )?"
+          proc_str += "International (Conference|Workshop)"
+          proceeding_pattern = "^" + proc_str + " [Oo]n Machine Learning|"
+          proceeding_pattern += "^Machine Learning, " + proc_str + "|(ML91)"
+        else:
+          raise ConferenceMismatch(
+              'The URL we requested ' + response.url + ' does not match ' +
+              'either conference (SIGKDD, ICML) that we are interested in.')
+
+        callback_fn = lambda x: self.parse_item(x, conference)
+
         for i in range(len(title_selector)):
           title = title_selector.extract()[i]
           toc_url = toc_selector.extract()[i]
-          if re.search(pattern, title):
-            yield SplashRequest(toc_url, self.parse_item, args={'wait': 5},
+          if re.search(proceeding_pattern, title):
+            yield SplashRequest(toc_url, callback_fn, args={'wait': 5},
                                 endpoint='render.html')
   
   
-    def parse_item(self, response):
+    def parse_item(self, response, conference):
         date_selector = response.selector.css('header.headline > h1::text')
         date = date_selector.extract_first()
         year = ""
@@ -74,6 +103,7 @@ class PaperUrls(BasePortiaSpider):
                                    '::attr(href)')
           paper_item = ConferenceTableOfContentsItem()
           paper_item["Year"] = year
+          paper_item["Conference"] = conference
           title = title_selector.extract_first()
           if not title: continue
           paper_item["Paper_Title"] = title

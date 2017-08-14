@@ -43,6 +43,10 @@ class AuthorItem(PortiaItem):
 
 
 class ConferenceTableOfContentsItem(PortiaItem):
+    Conference = scrapy.Field(
+        input_processor=Text(),
+        output_processor=Join(),
+    )
     Paper_Title = scrapy.Field(
         input_processor=Text(),
         output_processor=Join(),
