@@ -72,7 +72,7 @@ class PaperUrls(BasePortiaSpider):
           proc_str = "Proceedings of the \w+-?\w* (Annual )?"
           proc_str += "International (Conference|Workshop)"
           proceeding_pattern = "^" + proc_str + " [Oo]n Machine Learning|"
-          proceeding_pattern += "^Machine Learning, " + proc_str + "|(ML91)"
+          proceeding_pattern += "^Machine Learning, " + proc_str + "|ML91"
         else:
           raise ConferenceMismatch(
               'The URL we requested ' + response.url + ' does not match ' +
@@ -82,8 +82,10 @@ class PaperUrls(BasePortiaSpider):
 
         for i in range(len(title_selector)):
           title = title_selector.extract()[i]
+          self.logger.info('Checking conference title: %s', title)
           toc_url = toc_selector.extract()[i]
           if re.search(proceeding_pattern, title):
+            self.logger.info('Conference matches.')
             yield SplashRequest(toc_url, callback_fn, args={'wait': 5},
                                 endpoint='render.html')
   
