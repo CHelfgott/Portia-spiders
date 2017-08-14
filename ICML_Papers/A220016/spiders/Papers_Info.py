@@ -43,13 +43,10 @@ class PapersInfo(BasePortiaSpider):
           authors_selector = paper_selector.css('span.authors')
           authors = []
           author_list = authors_selector.extract_first().split(">,")
-          print("Craig Beta: Authors = " + str(author_list))
           for author in author_list:
-            print("Craig Alpha: Author =" + author)
             author_item = AuthorItem()
             author_and_affil = re.search('(^.*>\s*|^\s*)(.*)\s+<i>(.*?)</i', author)
             if not author_and_affil: continue
-            print("Craig Gamma")
             author_item["Author"] = author_and_affil.group(2)
             author_item["Affiliation"] = author_and_affil.group(3)
             authors.append(dict(author_item))
