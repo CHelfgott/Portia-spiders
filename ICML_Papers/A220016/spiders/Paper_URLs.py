@@ -84,14 +84,14 @@ class PaperUrls(BasePortiaSpider):
           proceeding_pattern = "^" + proc_str + " [Oo]n Machine Learning|"
           proceeding_pattern += "^Machine Learning, " + proc_str + "|ML91"
         elif re.search("nips", response.url, re.IGNORECASE):
-          # Excluding co-located workshops.
+          # Excluding co-located workshops and symposiums.
           conference = "NIPS"
           proceeding_pattern = "(?!co-located with).*Neural Information "
-          proceeding_pattern += "Processing Systems"
+          proceeding_pattern += "Processing Systems.*(?!Symposium)"
         else:
           raise ConferenceMismatch(
               'The URL we requested ' + response.url + ' does not match ' +
-              'either conference (SIGKDD, ICML) that we are interested in.')
+              'any conference (SIGKDD, ICML, NIPS) that we are interested in.')
 
         for i in range(len(title_selector)):
           title = title_selector.extract()[i]

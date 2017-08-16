@@ -29,9 +29,9 @@ Miscellaneous instructions for deploying, running, and editing this project:
    to do so.
 
 8) In regards to the paper information scraped from DBLP in Paper_URLs.py: 
-   The last stage,  parse_pdf, scrapes a page for every single paper AAAI, 
-   JMLR, and NIPS paper to get the url of the PDFs.  This takes _forever_ 
-   (5 seconds per paper * 3 conferences * 20 years * ~100 papers per conference,
-   worst case).  Instead of doing that, figure out if there are some 
-   regularities (e.g., see if just replacing the offsite URL with one that ends
-   in ".pdf" will give you the link).
+   The last stage, parse_pdf, scrapes a page for every single paper -- if it
+   is called. So the trick is to call it as few times as possible. Figure out
+   if there are some regularities in the way the secondary sources name their
+   PDFs (e.g., see if just replacing the offsite URL with one that ends in
+   ".pdf" will give you the link).
+
