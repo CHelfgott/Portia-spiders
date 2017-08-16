@@ -44,9 +44,11 @@ else:
     paper_url = ""
     if "Conference" in record: conference = record["Conference"]
     if "Year" in record: year = record["Year"]
-    if "Paper_PDF" in record and record["Paper_PDF"] != "":
+    if "Paper_PDF" in record and (record["Paper_PDF"] and
+        record["Paper_PDF"] != ""):
       paper_url = record["Paper_PDF"]
-    elif "Paper_URL" in record:
+    elif "Paper_URL" in record and (record["Paper_URL"] and
+        record["Paper_URL"] != ""):
       paper_url = record["Paper_URL"]
     if not conference in out_data:
       out_data[conference] = dict()
