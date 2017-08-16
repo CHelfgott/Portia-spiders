@@ -71,10 +71,10 @@ class PaperUrls(BasePortiaSpider):
           conference = "SIGKDD"
           # The following pattern will explicitly exclude the "Tutorial Notes"
           # accompanying the SIGKDD Proceedings in 1999 and 2001
-          proc_str = "Knowledge Discovery and Data Mining"
+          proc_str = "Knowledge [Dd]iscovery and [Dd]ata [Mm]ining"
           proceeding_pattern = "^Proceedings .* " + proc_str + "|"
-          proceeding_pattern += "^The \w+-?\w* ACM SIGKDD International "
-          proceeding_pattern += "Conference [Oo]n " + proc_str
+          proceeding_pattern += "^The \w+-?\w* ACM SIGKDD [Ii]nternational "
+          proceeding_pattern += "[Cc]onference [Oo]n " + proc_str
         elif re.search("icml", response.url, re.IGNORECASE):
           conference = "ICML"
           # We need to special-case ICML 1991, because the proceedings title
@@ -152,10 +152,18 @@ class PaperUrls(BasePortiaSpider):
               # We're looking at the AAAI Library then, very easy parse
               secondary_src = "AAAI"
             elif extension == "html":
-              # We're looking at the JMLR website, also easy parse.
-              secondary_src = "JMLR"
+              # We're looking at the JMLR website, don't even need to parse
+              # except for latest year.
+              if re.search("jmlr\.org", paper_url) and year != "2017":
+                paper_item["Paper_PDF"] = re.sub(
+                    "jmlr\.org/proceedings/papers(.*)\.html",
+                    "proceedings.mlr.press\1.pdf",
+                    paper_url)
+              else:
+                secondary_src = "JMLR"
             elif conference == "NIPS":
-              secondary_src = "NIPS"
+              # NIPS is very easy.
+              paper_item["Paper_PDF"] = paper_url + ".pdf"
             # Otherwise it's probably an ACM Digital Library paper, skip it.
             # (ACM is very anti-scraping.)
 
