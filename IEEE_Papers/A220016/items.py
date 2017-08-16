@@ -53,7 +53,7 @@ class IeeeXploreConferenceTableOfContentsItem(PortiaItem):
     )
 
 class PaperInfoItem(PortiaItem):
-    Title = scrapy.Field(
+    Paper_Title = scrapy.Field(
         input_processor=Text(),
         output_processor=Join(),
     )

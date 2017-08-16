@@ -45,24 +45,30 @@ class PapersInfo(BasePortiaSpider):
     def parse_item(self, response):
         paper = PaperInfoItem()
 
-        paper["Title"] = response.css('h1.document-title > span[ng-bind-html="vm.displayDocTitle"]::text').extract_first()
+        paper["Paper_Title"] = response.css('h1.document-title > ' +
+            'span[ng-bind-html="vm.displayDocTitle"]::text').extract_first()
             
         kw_selector = response.selector.css('.doc-keywords-list')
         IEEE_KW_CSS = '.doc-keywords-list-item:nth-child(1)'
         AUTHOR_KW_CSS = '.doc-keywords-list-item:nth-child(4)'
-        ieee_kw_selector = kw_selector.css(IEEE_KW_CSS).css('a.stats-keywords-list-item::text')
-        author_kw_selector = kw_selector.css(AUTHOR_KW_CSS).css('a.stats-keywords-list-item::text')
+        ieee_kw_selector = kw_selector.css(IEEE_KW_CSS).css(
+            'a.stats-keywords-list-item::text')
+        author_kw_selector = kw_selector.css(AUTHOR_KW_CSS).css(
+            'a.stats-keywords-list-item::text')
 
         paper["IEEE Keywords"] = ieee_kw_selector.extract()
         paper["Author Keywords"] = author_kw_selector.extract()
 
         author_selector = response.selector.css('div.authors-info-container')
-        author_selector = author_selector.css('span[ng-if="::author.affiliation"]')
+        author_selector = author_selector.css(
+            'span[ng-if="::author.affiliation"]')
         authors = []
         for author in author_selector:
           author_item = AuthorItem()
-          author_item["Author"] = author.css('a > span[ng-bind-html="::author.name"]::text').extract_first()
-          author_item["Affiliation"] = author.css('a::attr(qtip-text)').extract_first()
+          author_item["Author"] = author.css(
+              'a > span[ng-bind-html="::author.name"]::text').extract_first()
+          author_item["Affiliation"] = author.css(
+              'a::attr(qtip-text)').extract_first()
           authors.append(dict(author_item))
 
         paper["Authors"] = authors
@@ -73,4 +79,5 @@ class PapersInfo(BasePortiaSpider):
     def start_requests(self):
         for url in self.start_urls:
             print('URL: ' + str(url))
-            yield SplashRequest(url, self.parse_item, args={'wait': 3}, endpoint='render.html')
+            yield SplashRequest(url, self.parse_item, args={'wait': 3},
+                                endpoint='render.html')

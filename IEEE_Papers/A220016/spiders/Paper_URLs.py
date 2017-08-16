@@ -31,7 +31,8 @@ class PaperUrls(BasePortiaSpider):
             follow=True)]
 
     def parse_item(self, response):
-      paper_selector = response.selector.css('.results > li:nth-child(n) > .txt')
+      paper_selector = response.selector.css(
+          '.results > li:nth-child(n) > .txt')
       for paper in paper_selector:
         paper_item = IeeeXploreConferenceTableOfContentsItem()
         title = paper.css('h3 > .art-abs-url > span *::text').extract_first()
@@ -44,5 +45,6 @@ class PaperUrls(BasePortiaSpider):
 
     def start_requests(self):
         for url in self.start_urls:
-            yield SplashRequest(url, self.parse_item, args={'wait': 3}, endpoint='render.html')
+            yield SplashRequest(url, self.parse_item, args={'wait': 3},
+                                endpoint='render.html')
 

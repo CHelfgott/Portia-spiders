@@ -2,18 +2,36 @@ Miscellaneous instructions for deploying, running, and editing this project:
 
 1) Install Docker -- the instructions at
    https://docs.docker.com/engine/installation/ work fine.
-2) Install Scrapy -- either "pip install scrapy" or "sudo apt-get install scrapy"
-   should work.
-3) Install Splash -- this can be done via Docker as "docker pull scrapinghub/splash",
-   or it can be done via "pip install scrapy_splash".  I _think_ we want the second.
+2) Install Scrapy -- either "pip install scrapy" or "sudo apt-get install
+   scrapy" should work.
+3) Install Splash -- this can be done via Docker as "docker pull 
+   scrapinghub/splash", or it can be done via "pip install scrapy_splash".
+   I _think_ we want the second; we may in fact want both.
 4) Run Docker, using splash.  This is the commandline I use:
-   "sudo docker run --net=host -p 8050:8050 -p 5023:5023 scrapinghub/splash -max-timeout 3600 -v3"
-   I find that I tend to have issues with port forwarding without the "--net=host" flag.
-5) Now you can build and run the spiders. Build with "sudo python setup.py install", run
-   with "scrapy crawl -o <OUTPUT_FILE> --logfile=<LOG_FILE> <spider_name>"; scrapy --help is
-   helpful.
+   "sudo docker run --net=host -p 8050:8050 -p 5023:5023 scrapinghub/splash 
+   -max-timeout 3600 -v3"
+   I find that I tend to have issues with port forwarding without the
+   "--net=host" flag.
+5) Now you can build and run the spiders. Build with "sudo python setup.py
+   install", run with "scrapy crawl -o <OUTPUT_FILE> --logfile=<LOG_FILE>
+   <spider_name>"; scrapy --help is helpful.
 6) Editing the project:
-   a) middleware.py tells the project to use Splash to render pages before scraping; don't change that
-   b) Don't use the ItemLoader class if you're working with nested items, you'll just drive yourself crazy. (Seriously, the implementation of this feature has changed with every Scrapy release, and the net is full of instructions which no longer work.)  Instead, just cast the nested items as dicts, and assign the outer item fields as you would a dict.
+   a) middleware.py tells the project to use Splash to render pages before
+      scraping; don't change that
+   b) Don't use the ItemLoader class if you're working with nested items, 
+      you'll just drive yourself crazy. (Seriously, the implementation of this
+      feature has changed with every Scrapy release, and the net is full of
+      instructions which no longer work.)  Instead, just cast the nested items
+      as dicts, and assign the outer item fields as you would a dict.
    c) Remember that every directory needs an __init__.py.
-7) Although the Portia web UI in theory uses Splash to render the pages, it *does not work for scraping*.  Write your own damn spiders, and use Scrapy to do so.
+7) Although the Portia web UI in theory uses Splash to render the pages, it 
+   *does not work for scraping*.  Write your own damn spiders, and use Scrapy 
+   to do so.
+
+8) In regards to the paper information scraped from DBLP in Paper_URLs.py: 
+   The last stage,  parse_pdf, scrapes a page for every single paper AAAI, 
+   JMLR, and NIPS paper to get the url of the PDFs.  This takes _forever_ 
+   (5 seconds per paper * 3 conferences * 20 years * ~100 papers per conference,
+   worst case).  Instead of doing that, figure out if there are some 
+   regularities (e.g., see if just replacing the offsite URL with one that ends
+   in ".pdf" will give you the link).

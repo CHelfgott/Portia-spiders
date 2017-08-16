@@ -55,6 +55,10 @@ class ConferenceTableOfContentsItem(PortiaItem):
         input_processor=Url(),
         output_processor=Join(),
     )
+    Paper_PDF = scrapy.Field(
+        input_processor=Url(),
+        output_processor=Join(),
+    )
     Year = scrapy.Field(
         input_processor=Text(),
         output_processor=Join(),
@@ -66,7 +70,7 @@ class ConferenceTableOfContentsItem(PortiaItem):
 
 
 class PaperInfoItem(PortiaItem):
-    Title = scrapy.Field(
+    Paper_Title = scrapy.Field(
         input_processor=Text(),
         output_processor=Join(),
     )

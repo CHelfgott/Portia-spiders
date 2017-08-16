@@ -37,7 +37,7 @@ class PapersInfo(BasePortiaSpider):
         papers_selector = response.selector.css('div[id="schedule"] > ul > li')
         for paper_selector in papers_selector:
           paper = PaperInfoItem()
-          paper["Title"] = paper_selector.css(
+          paper["Paper_Title"] = paper_selector.css(
               'span.titlepaper > a[href="#"]::text').extract_first()
           if not paper["Title"]: continue
           authors_selector = paper_selector.css('span.authors')
@@ -45,7 +45,8 @@ class PapersInfo(BasePortiaSpider):
           author_list = authors_selector.extract_first().split(">,")
           for author in author_list:
             author_item = AuthorItem()
-            author_and_affil = re.search('(^.*>\s*|^\s*)(.*)\s+<i>(.*?)</i', author)
+            author_and_affil = re.search('(^.*>\s*|^\s*)(.*)\s+<i>(.*?)</i',
+                                         author)
             if not author_and_affil: continue
             author_item["Author"] = author_and_affil.group(2)
             author_item["Affiliation"] = author_and_affil.group(3)
@@ -59,4 +60,5 @@ class PapersInfo(BasePortiaSpider):
     def start_requests(self):
         for url in self.start_urls:
             print('URL: ' + str(url))
-            yield SplashRequest(url, self.parse_item, args={'wait': 3}, endpoint='render.html')
+            yield SplashRequest(url, self.parse_item, args={'wait': 3},
+                                endpoint='render.html')
