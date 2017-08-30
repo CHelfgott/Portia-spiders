@@ -157,7 +157,7 @@ class PaperUrls(BasePortiaSpider):
               if re.search("jmlr\.org", paper_url) and year != "2017":
                 paper_item["Paper_PDF"] = re.sub(
                     "jmlr\.org/proceedings/papers(.*)\.html",
-                    "proceedings.mlr.press\1.pdf",
+                    "proceedings.mlr.press\\1.pdf",
                     paper_url)
               else:
                 secondary_src = "JMLR"
