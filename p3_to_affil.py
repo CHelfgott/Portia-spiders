@@ -20,6 +20,7 @@ import json
 import optparse
 import os
 import re
+import sys
 import time
 
 import utils
@@ -55,6 +56,7 @@ def main():
     in_data = json.load(data_file)
 
   record_cnt = 0
+  acm_cnt = 0
   for record in in_data:
 #    if record_cnt >= 50: break
     title = record["Paper_Title"]
@@ -101,7 +103,10 @@ def main():
       if len(authors_without_affs) > 0: record_cnt += 1
       author_affiliation.update(
           utils.scrape_acmdl_for_affs(authors_without_affs, paper_url))
-      time.sleep(1)
+      time.sleep(0.2)
+      acm_cnt += 1
+      print("ACM Count: " + str(acm_cnt))
+      sys.stdout.flush()
     else:
       for author in authors_without_affs:
         author_affiliation[author] = ""

@@ -166,12 +166,15 @@ def scrape_acmdl_for_affs(author_set, paper_url):
   htmlname = doi_ref.group(1) + ".html"
   html_path = os.path.join(tmpdir, htmlname)
   if not os.path.exists(html_path):
-    with open(html_path, "wb") as html_file:
-      r = requests.get(acm_url, headers=constants.HEADERS)
-      if r.status_code != 200:
-        print("Error " + str(r.status_code) + ": page not accessible at "
-              + acm_url)
-      html_file.write(r.content)
+    try:
+      with open(html_path, "wb") as html_file:
+        r = requests.get(acm_url, headers=constants.HEADERS)
+        if r.status_code != 200:
+          print("Error " + str(r.status_code) + ": page not accessible at "
+                + acm_url)
+        html_file.write(r.content)
+    except:
+      print("Could not get " + acm_url)
   try:
     with open(html_path, "r") as html_file:
       parser= ET.HTMLParser()
