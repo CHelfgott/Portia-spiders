@@ -30,6 +30,8 @@ def main():
           parsed_record = record.split("|")
           if parsed_record[0] == "Title":
             continue
+          if len(parsed_record) > 9:
+            print("Extra |s: " + record)
           title = parsed_record[0]
           author = parsed_record[1]
           if title in record_holder and author in record_holder[title]:
@@ -39,10 +41,12 @@ def main():
             if new_aff_type == "Unknown":
               if old_record[2] != "Unknown":
                 parsed_record[3] = old_record[3]
-                parsed_record[2] = old_record[2]
-              elif len(new_aff_type) < 5 and len(old_record[3]) >= 5:
+                parsed_record[2] = utils.classify_affiliation(old_record[3])
+              elif len(new_affil) < 5 and len(old_record[3]) >= 5:
                 parsed_record[3] = old_record[3]
-                parsed_record[2] = utils.classify_affiliation(old_record[2])
+                parsed_record[2] = utils.classify_affiliation(old_record[3])
+            else:
+              parsed_record[2] = utils.classify_affiliation(new_affil)
           else:
             affil = parsed_record[3]
             parsed_record[2] = utils.classify_affiliation(affil)
